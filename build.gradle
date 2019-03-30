@@ -19,6 +19,9 @@ repositories {
 
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    compile group: 'io.projectreactor', name: 'reactor-core', version: '3.2.8.RELEASE'
+    testCompile group: 'io.projectreactor', name: 'reactor-test', version: '3.1.0.RELEASE'
+    testCompile group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.3'
     testCompile 'junit:junit:4.11'
     testCompile "org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version"
 }
