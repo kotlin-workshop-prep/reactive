@@ -1,3 +1,3 @@
 package domain
 
-data class Product(val description: String, val price: Double)
+data class Product(val id: Int, val description: String, val price: Double)
