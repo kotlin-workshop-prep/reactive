@@ -1,23 +1,22 @@
 package examples
 
-import domain.Customer
-import domain.LineItem
-import domain.Order
-import domain.Product
+import domain.*
 import org.junit.Test
 import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
 import reactor.test.StepVerifier
 
 class Part02TransformTest {
-    val part02Transform = Part02Transform()
+    private val part02Transform = Part02Transform()
 
     @Test
     fun `should get capitalized list of names`() {
 
-        val customers = Flux.just(Customer("Alice"), Customer("Bob"), Customer("Carol"))
+        val employees = Flux.just(Employee(1, "Alice", 5000),
+                Employee(2, "Bob", 4000),
+                Employee(3, "Carol", 6000))
 
-        val names: Flux<String> = part02Transform.capitalizedNames(customers)
+        val names: Flux<String> = part02Transform.capitalizedNames(employees)
 
         StepVerifier.create(names)
                 .expectNext("ALICE")
@@ -28,17 +27,16 @@ class Part02TransformTest {
     }
 
     @Test
-    fun `should get total amount of order`() {
-        val order = Mono.just(Order(1, listOf(
-                LineItem(Product(1, "Apples", 80.0), 2),
-                LineItem(Product(2, "Oranges", 100.0), 3),
-                LineItem(Product(3, "Grapes", 120.0), 1)
-        ), Customer("Alice")))
+    fun `should get total salary in a department`() {
 
-        val totalForOrder = part02Transform.totalForOrder(order)
+        val department = Mono.just(Department(1, "Finance", 42, mutableListOf(Employee(1, "Alice", 5000),
+                Employee(2, "Bob", 4000),
+                Employee(3, "Carol", 6000))))
 
-        StepVerifier.create(totalForOrder)
-                .expectNext(580.0)
+        val totalSalaryOfDepartment = part02Transform.totalSalary(department)
+
+        StepVerifier.create(totalSalaryOfDepartment)
+                .expectNext(15000)
                 .verifyComplete()
     }
 }

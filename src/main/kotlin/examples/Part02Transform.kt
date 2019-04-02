@@ -1,19 +1,19 @@
 package examples
 
-import domain.Customer
-import domain.Order
+import domain.Department
+import domain.Employee
 import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
 
 class Part02Transform {
-    fun capitalizedNames(customers: Flux<Customer>): Flux<String> {
+    fun capitalizedNames(employees: Flux<Employee>): Flux<String> {
 //        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-        return customers.map { it.name.toUpperCase() }
+        return employees.map { it.name.toUpperCase() }
     }
 
-    fun totalForOrder(order: Mono<Order>): Mono<Double> {
+    fun totalSalary(department: Mono<Department>): Mono<Int> {
 //        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-        return order.map { it.lineItems.map { l -> l.quantity * l.product.price }.reduce{ x, y -> x + y} }
+        return department.map { it.employees.sumBy { e -> e.salary } }
     }
 
 }
