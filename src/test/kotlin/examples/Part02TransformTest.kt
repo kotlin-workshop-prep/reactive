@@ -30,9 +30,9 @@ class Part02TransformTest {
     @Test
     fun `should get total amount of order`() {
         val order = Mono.just(Order(1, listOf(
-                LineItem(Product("Apples", 80.0), 2),
-                LineItem(Product("Oranges", 100.0), 3),
-                LineItem(Product("Grapes", 120.0), 1)
+                LineItem(Product(1, "Apples", 80.0), 2),
+                LineItem(Product(2, "Oranges", 100.0), 3),
+                LineItem(Product(3, "Grapes", 120.0), 1)
         ), Customer("Alice")))
 
         val totalForOrder = part02Transform.totalForOrder(order)
